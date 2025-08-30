@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Beulah Balaji - Student Portfolio</title>
+
+<style>
+
+/* ===== Body & Background ===== */
+
+body, html {
+
+    margin:0;
+
+    padding:0;
+
+    font-family: 'Segoe UI', sans-serif;
+
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+
+    color:#e0e0e0;
+
+    overflow-x:hidden;
+
+}
+
+a { color:#00ffff; text-decoration:none; }
+
+h1,h2,h3 { margin:5px 0; }
+
+section { padding:30px; }
+
+button { cursor:pointer; transition:0.3s; }
+
+button:hover { opacity:0.8; }
+
+/* ===== Neon Glow Buttons ===== */
+
+button { background:#00ffff; color:#0a0a0a; border:none; padding:8px 12px; border-radius:5px; }
+
+/* ===== Profile Section ===== */
+
+.profile-pic {
+
+    width:150px; height:150px; border-radius:50%; 
+
+    background:#00ffff; display:flex; align-items:center; justify-content:center;
+
+    font-size:70px; font-weight:bold; color:#0a0a0a; margin:auto;
+
+    box-shadow: 0 0 20px #00ffff;
+
+}
+
+.profile {
+
+    text-align:center;
+
+}
+
+.profile h1 { font-size:2rem; }
+
+.profile p { margin:5px 0; }
+
+/* ===== AI Assistant Section ===== */
+
+.assistant-box {
+
+    max-width:600px; margin:auto; background:#1a1a1a; border:1px solid #00ffff; border-radius:10px;
+
+    padding:20px; box-shadow:0 0 20px #00ffff; position:relative;
+
+}
+
+.messages { height:300px; overflow-y:auto; margin-bottom:10px; padding:5px; border:1px solid #00ffff; border-radius:5px; background:#0a0a0a; }
+
+.message { padding:5px 10px; margin:5px 0; border-radius:5px; }
+
+.user-msg { background:#00ffff; color:#0a0a0a; text-align:right; }
+
+.ai-msg { background:#333; color:#e0e0e0; text-align:left; }
+
+#typing { font-style:italic; color:#00ffff; display:none; }
+
+/* ===== Contact Form ===== */
+
+.contact input, .contact textarea {
+
+    width:100%; padding:8px; margin:5px 0; border-radius:5px; border:1px solid #00ffff; background:#1a1a1a; color:#e0e0e0;
+
+}
+
+.contact button { width:100%; margin-top:10px; }
+
+/* ===== Options Buttons ===== */
+
+.options { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:10px; }
+
+/* ===== Quick Explore Floating Button ===== */
+
+#quickExploreBtn {
+
+    position:absolute; top:15px; right:15px; background:#00ffff; color:#0a0a0a; border:none; border-radius:50%; width:40px; height:40px;
+
+    font-size:18px; font-weight:bold; cursor:pointer; box-shadow:0 0 10px #00ffff;
+
+}
+
+#quickExplorePopup {
+
+    display:none; position:absolute; top:60px; right:15px; background:#1a1a1a; border:1px solid #00ffff; border-radius:5px;
+
+    padding:10px; width:220px; box-shadow:0 0 20px #00ffff;
+
+}
+
+#quickExplorePopup p { margin:5px 0; font-size:0.9rem; cursor:pointer; }
+
+#quickExplorePopup p:hover { color:#00ffff; }
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ===== Profile Section ===== -->
+
+<section class="profile">
+
+    <div class="profile-pic">B</div>
+
+    <h1>Beulah Balaji</h1>
+
+    <p>High school completed in Computer applications</p>
+
+    <p>Currently pursuing UG in BCA Computer Applications at Tirupur Kumaran College for Women</p>
+
+    <p>Skills: HTML, CSS, JavaScript, AI Basics, Python, Data Analysis, Leadership</p>
+
+    <p>Languages: English (Fluent UK/US), Spanish, French, Hindi, Tamil</p>
+
+    <p>Hobbies: Poetry, Music, Tech Exploration</p>
+
+</section>
+
+<!-- ===== AI Assistant Section ===== -->
+
+<section class="assistant-box">
+
+    <h2>AI Assistant</h2>
+
+    <div class="messages" id="messages"></div>
+
+    <div id="typing">Beulah is typing...</div>
+
+    
+
+    <div class="options">
+
+        <button onclick="userClick('Hi')">Hi</button>
+
+        <button onclick="userClick('Who developed you')">Who developed you?</button>
+
+        <button onclick="userClick('How were you developed')">How were you developed?</button>
+
+        <button onclick="userClick('Education')">Education</button>
+
+        <button onclick="userClick('Skills')">Skills</button>
+
+        <button onclick="userClick('Interested in Hiring')">Interested in Hiring</button>
+
+        <button onclick="userClick('Enquiry')">Enquiry</button>
+
+        <button onclick="userClick('Just Explore')">Just Explore</button>
+
+    </div>
+
+    <div style="display:flex; gap:10px; margin-top:10px;">
+
+        <input type="text" id="userInput" placeholder="Ask me anything..." style="flex:1; padding:8px; border-radius:5px; border:1px solid #00ffff; background:#1a1a1a; color:#e0e0e0;">
+
+        <button onclick="sendInput()">Send</button>
+
+    </div>
+
+    <div style="margin-top:10px;">
+
+        <label for="voiceSelect">Voice:</label>
+
+        <select id="voiceSelect"></select>
+
+    </div>
+
+    <!-- Quick Explore Button & Popup -->
+
+    <button id="quickExploreBtn" onclick="toggleQuickExplore()">?</button>
+
+    <div id="quickExplorePopup">
+
+        <p onclick="userClick('Hi')">Hi</p>
+
+        <p onclick="userClick('Who developed you')">Who developed you?</p>
+
+        <p onclick="userClick('How were you developed')">How were you developed?</p>
+
+        <p onclick="userClick('Education')">Education</p>
+
+        <p onclick="userClick('Skills')">Skills</p>
+
+        <p onclick="userClick('Interested in Hiring')">Interested in Hiring</p>
+
+    </div>
+
+</section>
+
+<!-- ===== Contact Me Section ===== -->
+
+<section class="contact">
+
+    <h2>Contact Me</h2>
+
+    <input type="text" id="contactName" placeholder="Your Name">
+
+    <input type="email" id="contactEmail" placeholder="Your Email">
+
+    <textarea id="contactMsg" placeholder="Your Message"></textarea>
+
+    <button onclick="submitContact()">Submit</button>
+
+    <p id="contactConfirm" style="color:#00ffff;"></p>
+
+</section>
+
+<script>
+
+// ===== AI Assistant Responses =====
+
+const messages = document.getElementById('messages');
+
+const typing = document.getElementById('typing');
+
+const responses = {
+
+    "Hi":"Hello! 😄 How can I assist you today?",
+
+    "Who developed you":"Beulah developed me! 😎",
+
+    "How were you developed":"I was developed using HTML, CSS, and JavaScript by Beulah.",
+
+    "Education":"High school completed in Computer. Currently pursuing UG in BCA Computer Applications at Tirupur Kumaran College for Women.",
+
+    "Skills":"HTML, CSS, JavaScript, Python, AI Basics, Leadership, Data Analysis",
+
+    "Interested in Hiring":"Glad to hear! Leave a message, Beulah will reply to you soon 😊",
+
+    "Enquiry":"Sure! Ask me anything you want to know.",
+
+    "Just Explore":"Feel free to explore my portfolio and AI assistant!"
+
+};
+
+// ===== Voice Setup =====
+
+let voices = [];
+
+function populateVoices(){
+
+    voices = speechSynthesis.getVoices();
+
+    const select = document.getElementById('voiceSelect');
+
+    select.innerHTML = '';
+
+    voices.forEach((v,i)=> {
+
+        const option = document.createElement('option');
+
+        option.value = i;
+
+        option.textContent = v.name + ' (' + v.lang + ')';
+
+        select.appendChild(option);
+
+    });
+
+}
+
+speechSynthesis.onvoiceschanged = populateVoices;
+
+// ===== Speak Function =====
+
+function speak(text){
+
+    const msg = new SpeechSynthesisUtterance(text);
+
+    const select = document.getElementById('voiceSelect');
+
+    const v = voices[select.value] || voices[0];
+
+    msg.voice = v;
+
+    msg.rate = 1;
+
+    speechSynthesis.speak(msg);
+
+}
+
+// ===== Button Click =====
+
+function userClick(key){
+
+    const userMsg = document.createElement('div');
+
+    userMsg.className = 'message user-msg';
+
+    userMsg.textContent = key;
+
+    messages.appendChild(userMsg);
+
+    messages.scrollTop = messages.scrollHeight;
+
+    
+
+    typing.style.display='block';
+
+    setTimeout(()=>{
+
+        typing.style.display='none';
+
+        const aiMsg = document.createElement('div');
+
+        aiMsg.className='message ai-msg';
+
+        aiMsg.textContent = responses[key] || "I'm still learning to answer that. 😊";
+
+        messages.appendChild(aiMsg);
+
+        messages.scrollTop = messages.scrollHeight;
+
+        speak(aiMsg.textContent);
+
+    },1200);
+
+}
+
+// ===== Free Text Input =====
+
+function sendInput(){
+
+    const input = document.getElementById('userInput');
+
+    let msg = input.value.trim();
+
+    if(msg==="") return;
+
+    input.value = "";
+
+    
+
+    const userMsg = document.createElement('div');
+
+    userMsg.className='message user-msg';
+
+    userMsg.textContent = msg;
+
+    messages.appendChild(userMsg);
+
+    messages.scrollTop = messages.scrollHeight;
+
+    typing.style.display='block';
+
+    setTimeout(()=>{
+
+        typing.style.display='none';
+
+        const aiMsg = document.createElement('div');
+
+        aiMsg.className='message ai-msg';
+
+        const key = Object.keys(responses).find(k => msg.toLowerCase().includes(k.toLowerCase()));
+
+        aiMsg.textContent = key ? responses[key] : "I'm still learning to answer that. 😊";
+
+        messages.appendChild(aiMsg);
+
+        messages.scrollTop = messages.scrollHeight;
+
+        speak(aiMsg.textContent);
+
+    },1200);
+
+}
+
+// ===== Contact Form =====
+
+function submitContact(){
+
+    const name = document.getElementById('contactName').value.trim();
+
+    const email = document.getElementById('contactEmail').value.trim();
+
+    const msg = document.getElementById('contactMsg').value.trim();
+
+    if(name==="" || email==="" || msg==="") return;
+
+    document.getElementById('contactConfirm').textContent = "Thank you! Your message has been received.";
+
+    document.getElementById('contactName').value="";
+
+    document.getElementById('contactEmail').value="";
+
+    document.getElementById('contactMsg').value="";
+
+}
+
+// ===== Quick Explore Popup =====
+
+function toggleQuickExplore(){
+
+    const popup = document.getElementById('quickExplorePopup');
+
+    popup.style.display = popup.style.display==='block' ? 'none' : 'block';
+
+}
+
+</script>
+
+</body>
+
+</html>
